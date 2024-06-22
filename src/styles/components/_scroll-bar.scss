@@ -1,0 +1,20 @@
+.csd-scroll {
+  &::-webkit-scrollbar {
+    background-color: #eeeeee;
+    @apply tw-rounded-sm tw-w-[5px];
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply tw-border-0 tw-border-none tw-rounded-sm tw-w-[3px];
+    background: #78aff8;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #5da3ff;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply tw-rounded-sm tw-border-0;
+    background: #eeeeee;
+  }
+}
