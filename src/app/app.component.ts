@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LazyLoadingSpinnerComponent } from './common/components/lazy-loading-spinner/lazy-loading-spinner.component';
+import { LazyLoadingSpinnerComponent } from '@pm-components/lazy-loading-spinner/lazy-loading-spinner.component';
 
 @Component({
   selector: 'pm-root',

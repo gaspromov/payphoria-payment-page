@@ -3,6 +3,16 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "paths": {
+      "@pm-store/*": ["app/common/store/*"],
+      "@pm-components/*": ["app/common/components/*"],
+      "@pm-services/*": ["app/common/services/*"],
+      "@pm-models/*": ["app/common/models/*"],
+      "@pm-interceptors/*": ["app/common/interceptors/*"],
+      "@pm-consts/*": ["app/common/consts/*"],
+      "@pm-utils/*": ["app/common/utils/*"],
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
