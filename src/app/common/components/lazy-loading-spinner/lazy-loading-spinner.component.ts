@@ -50,6 +50,7 @@ export class LazyLoadingSpinnerComponent {
           event instanceof NavigationError
         ) {
           this.show.set(false);
+          // todo: ERROR NOTIFY HERE
         }
       });
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OrderDTO } from '@pm-models/order/order.models';
 import { HttpService } from '@pm-services/http/http.service';
+import { COMMON_REQUESTS } from 'app/common/requests/common.requests';
 import { Subject, shareReplay, take } from 'rxjs';
 
 @Injectable({
@@ -20,24 +21,23 @@ export class OrderStore {
 
   setId(id: string) {
     this.#id$.next(id);
-    this.fetchData();
   }
 
   fetchData() {
-    // this.orderId$
-    //   .pipe(
-    //     take(1)
-    //     // switchMap to req
-    //   )
-    //   .subscribe({
-    //     next: (order) => {
-    //       // set order
-    //     },
-    //     error: (err) => {
-    //       // handle error
-    //     },
-    //   });
+    this.http.request<OrderDTO>(COMMON_REQUESTS.GET_ORDER).subscribe({
+      next: (data) => this.#data$.next(data),
+      error: (err) => {
+        // todo: ERROR NOTIFY HERE
+      },
+    });
   }
 
-  nextOrder(data: Record<string, any>) {}
+  nextOrder(data: Record<string, any>) {
+    this.http.request<OrderDTO>(COMMON_REQUESTS.NEXT_ORDER).subscribe({
+      next: (data) => this.#data$.next(data),
+      error: (err) => {
+        // todo: ERROR NOTIFY HERE
+      },
+    });
+  }
 }
