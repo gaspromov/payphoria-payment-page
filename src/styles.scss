@@ -2,5 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./styles/material/mat-theme";
 @import "./styles/reset";
 @import "./styles/components";
+
+body {
+  @extend .csd-scroll;
+  height: 100%;
+}
+
+html,
+body,
+pm-root {
+  @apply tw-min-h-screen tw-grid tw-p-0 tw-m-0;
+  @apply tw-text-black;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

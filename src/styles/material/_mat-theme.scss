@@ -1,0 +1,44 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$primary-color: #0863ec;
+
+$dark-primary-color: #fff;
+
+$error-color: #da3a3a;
+
+$primary-colors: (
+  500: $primary-color,
+  700: $primary-color,
+  900: $primary-color,
+  contrast: (),
+);
+
+$accent-colors: (
+  500: $dark-primary-color,
+  700: $dark-primary-color,
+  900: $dark-primary-color,
+  contrast: (),
+);
+
+$warn-colors: (
+  100: $error-color,
+  500: $error-color,
+  700: $error-color,
+  contrast: (),
+);
+
+$theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: mat.define-palette($primary-colors, 500, 900),
+      accent: mat.define-palette($accent-colors, 500, 900),
+      warn: mat.define-palette($warn-colors, 500),
+    ),
+  )
+);
+
+@include mat.all-component-themes($theme);
+
+@import "./mat-icon";
