@@ -1,0 +1,71 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+button {
+  background: none;
+  border: none;
+}
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+select,
+a,
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+div,
+form,
+textarea,
+input,
+ul {
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+ul,
+fieldset,
+ol {
+  margin: 0px;
+  padding: 0px;
+}
+ul,
+ol {
+  list-style: none;
+}
+button:disabled,
+input:disabled {
+  cursor: default;
+}
+
+fieldset {
+  border: none;
+}
+
+router-outlet {
+  position: absolute;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
