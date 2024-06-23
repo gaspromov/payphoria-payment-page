@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'csd-lazy-loading-spinner',
+  selector: 'pm-lazy-loading-spinner',
   template: `
     <mat-progress-bar *ngIf="show()" mode="indeterminate" color="primary" />
   `,

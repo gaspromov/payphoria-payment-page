@@ -59,5 +59,6 @@ export interface OrderPaymentDTO {
   requisites: string;
   holderName: string;
   comment?: string;
+  /** Чек, подтверждающий перевод */
   proofImg?: string;
 }
