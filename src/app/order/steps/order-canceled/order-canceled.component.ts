@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'pm-order-canceled',
   templateUrl: './order-canceled.component.html',
-  styleUrl: './order-canceled.component.scss',
+  styles: ':host{ @apply tw-grid tw-gap-5; }',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [MatButton, AsyncPipe],

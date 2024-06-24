@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'pm-order-failed',
   templateUrl: './order-failed.component.html',
-  styleUrl: './order-failed.component.scss',
+  styles: ':host{ @apply tw-grid tw-gap-5; }',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [MatButton, AsyncPipe],
