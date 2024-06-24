@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { Store } from '@pm-store/store';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'pm-order-canceled',
@@ -6,5 +10,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './order-canceled.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  imports: [MatButton, AsyncPipe],
 })
-export class OrderCanceledComponent {}
+export class OrderCanceledComponent {
+  readonly returnLink$ = inject(Store)
+    .merchant.selectData()
+    .pipe(map((d) => d.returnUrls.default));
+}

@@ -27,3 +27,6 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.pm-container {
+  @apply tw-bg-secondary tw-rounded-[5px] tw-px-2.5;
+}
