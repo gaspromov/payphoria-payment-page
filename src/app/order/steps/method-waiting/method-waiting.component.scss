@@ -1,0 +1,15 @@
+:host {
+  @apply tw-grid tw-gap-5;
+}
+
+mat-progress-bar {
+  @apply tw-absolute tw-left-0 tw-top-0 tw-w-full;
+}
+
+.container {
+  @apply tw-grid tw-gap-2.5 tw-px-4 tw-py-2 tw-text-center tw-rounded-[5px];
+}
+
+.alert {
+  @apply tw-text-white/30 md:tw-text-base tw-font-medium tw-text-sm;
+}

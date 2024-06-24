@@ -16,7 +16,7 @@
 }
 
 .window {
-  @apply tw-p-5 tw-rounded-[10px] tw-bg-accent tw-relative;
+  @apply tw-p-5 tw-rounded-[10px] tw-bg-accent tw-relative tw-overflow-hidden;
 }
 
 footer {

@@ -10,6 +10,8 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatProgressBar } from '@angular/material/progress-bar';
 import { Store } from '@pm-store/store';
 import { interval } from 'rxjs';
 
@@ -19,7 +21,7 @@ import { interval } from 'rxjs';
   styleUrl: './method-waiting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [],
+  imports: [MatProgressSpinner, MatProgressBar],
 })
 export class MethodWaitingComponent implements OnInit {
   readonly pending = signal(this.store.order.selectPending());

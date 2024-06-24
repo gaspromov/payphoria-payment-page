@@ -1,0 +1,12 @@
+@if (pending()) {
+<mat-progress-bar color="primary" mode="indeterminate" />
+}
+
+<div class="container tw-h-32">
+  <p class="tw-text-base tw-font-medium">Подбираем провайдера платежа...</p>
+  <mat-spinner [diameter]="30" [strokeWidth]="5" />
+</div>
+
+<p class="alert container" role="alert">
+  Не закрывайте страницу. Обычно это занимает не больше минуты.
+</p>
