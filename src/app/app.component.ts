@@ -12,17 +12,15 @@ import { ActivatedRoute, Params, RouterOutlet } from '@angular/router';
 import { QUERY_PARAMS_NAMES } from '@pm-consts/query-params-names.consts';
 import { OrderStatuses } from '@pm-models/order/order.models';
 import { Store } from '@pm-store/store';
-import { catchError, filter, map, of, shareReplay } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { OrderCreatingComponent } from './order-creating/order-creating.component';
 import { HttpService } from '@pm-services/http/http.service';
-import { COMMON_REQUESTS } from './common/requests/common.requests';
-import { PageConfigDTO } from '@pm-models/page-config.models';
 import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { OrderComponent } from './order/order.component';
 import { NgVarDirective } from './common/directives/ngvar.directive';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageParamsFailedComponent } from './page-params-failed/page-params-failed.component';
 
 enum PageStates {
@@ -45,8 +43,8 @@ enum PageStates {
     AsyncPipe,
     NgVarDirective,
     MatProgressSpinner,
-    MatSnackBarModule,
   ],
+  providers: [MatSnackBar],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
