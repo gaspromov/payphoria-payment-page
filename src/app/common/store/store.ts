@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { MerchantStore } from './merchant/merchant.store';
 import { OrderStore } from './order/order.store';
 import { OrderDTO } from '@pm-models/order/order.models';
+import { PageConfigStore } from './page-config/page-config.store';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { OrderDTO } from '@pm-models/order/order.models';
 export class Store {
   readonly #merchant = inject(MerchantStore);
   readonly #order = inject(OrderStore);
+  readonly #pageConfig = inject(PageConfigStore);
 
   get merchant() {
     return {
@@ -31,6 +33,12 @@ export class Store {
       patchProofImg: (imgUrl: string) => this.#order.patchProofImg(imgUrl),
       fetchData: () => this.#order.fetchData(),
       next: (data: Record<string, any>) => this.#order.next(data),
+    };
+  }
+
+  get pageCongif() {
+    return {
+      selectData: () => this.#pageConfig.pageConfig$,
     };
   }
 }

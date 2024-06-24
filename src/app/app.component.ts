@@ -52,7 +52,7 @@ enum PageStates {
 export class AppComponent implements OnInit {
   readonly state = signal<PageStates>(PageStates.PENDING);
 
-  readonly pageConfig$ = this.getPageConfig();
+  readonly pageConfig$ = this.store.pageCongif.selectData();
 
   readonly PageStates = PageStates;
   readonly OrderStatuses = OrderStatuses;
@@ -117,14 +117,5 @@ export class AppComponent implements OnInit {
     const orderId = queryParams[QUERY_PARAMS_NAMES.ORDER_ID];
 
     return { merchantOrderId, merchantToken, orderId };
-  }
-
-  private getPageConfig() {
-    return this.http
-      .request<PageConfigDTO>(COMMON_REQUESTS.GET_PAGE_CONFIG)
-      .pipe(
-        shareReplay(1),
-        catchError(() => of(undefined))
-      );
   }
 }

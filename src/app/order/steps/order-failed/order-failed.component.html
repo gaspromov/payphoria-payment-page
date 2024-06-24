@@ -1,0 +1,21 @@
+<div class="pm-container">
+  <p>
+    Система отклонила ваш платеж. Вы можете создать новый на сайте магазина.
+    Если у вас есть вопросы, обратитесь в поддержку.
+  </p>
+
+  <a
+    mat-flat-button
+    color="secondary"
+    [href]="supportLink$ | async"
+    target="_blank"
+    rel="noopener"
+    class="tw-justify-self-center"
+  >
+    Поддержка
+  </a>
+</div>
+
+<a mat-flat-button color="primary" [href]="returnUrl$ | async">
+  Вернуться на сайте
+</a>
