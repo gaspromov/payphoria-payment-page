@@ -1,0 +1,11 @@
+:host {
+  @apply tw-grid tw-gap-2.5;
+}
+
+h1 {
+  @apply tw-text-error tw-text-xl tw-text-center;
+}
+
+p {
+  @apply tw-text-base tw-font-medium tw-text-center;
+}

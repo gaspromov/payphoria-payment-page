@@ -1,12 +1,10 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Inject,
   OnDestroy,
+  OnInit,
   Output,
-  PLATFORM_ID,
   signal,
 } from '@angular/core';
 import {
@@ -53,12 +51,12 @@ const GET_CYRRENCIES_REQ: HttpRequestData = {
   ],
   standalone: true,
 })
-export class OrderCreatingComponent implements AfterViewInit, OnDestroy {
+export class OrderCreatingComponent implements OnInit, OnDestroy {
   @Output()
   readonly destroyed = new EventEmitter<void>();
 
   @Output()
-  readonly viewInited = new EventEmitter<void>();
+  readonly inited = new EventEmitter<void>();
 
   readonly form = new FormGroup({
     amount: new FormControl<number | null>(null, Validators.required),
@@ -74,8 +72,8 @@ export class OrderCreatingComponent implements AfterViewInit, OnDestroy {
 
   constructor(private http: HttpService, private store: Store) {}
 
-  ngAfterViewInit(): void {
-    this.viewInited.emit();
+  ngOnInit(): void {
+    this.inited.emit();
   }
 
   ngOnDestroy(): void {

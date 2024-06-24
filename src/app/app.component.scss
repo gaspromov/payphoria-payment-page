@@ -17,6 +17,10 @@
 
 .window {
   @apply tw-p-5 tw-rounded-[10px] tw-bg-accent tw-relative tw-overflow-hidden;
+
+  &_danger{
+    @apply tw-bg-[#401C1C] tw-border tw-border-error tw-border-solid;
+  }
 }
 
 footer {

@@ -23,6 +23,7 @@ import { OrderComponent } from './order/order.component';
 import { NgVarDirective } from './common/directives/ngvar.directive';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PageParamsFailedComponent } from './page-params-failed/page-params-failed.component';
 
 enum PageStates {
   PENDING = 'PENDING',
@@ -37,6 +38,7 @@ enum PageStates {
   imports: [
     RouterOutlet,
     OrderCreatingComponent,
+    PageParamsFailedComponent,
     NgOptimizedImage,
     MatButtonModule,
     OrderComponent,
