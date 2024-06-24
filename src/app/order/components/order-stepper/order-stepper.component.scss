@@ -1,0 +1,32 @@
+:host {
+  @apply tw-grid tw-gap-2.5;
+}
+
+h3 {
+  @apply md:tw-text-xl md:tw-leading-[30px] tw-text-base tw-font-bold;
+}
+
+.stepper {
+  @apply tw-grid tw-grid-cols-4 tw-gap-2.5;
+
+  &__item {
+    @apply tw-h-1.5 tw-rounded-[5px] tw-bg-primary/30;
+    @apply tw-transition-all;
+
+    &_filled {
+      @apply tw-bg-primary;
+    }
+  }
+
+  &_warn &__item_filled {
+    @apply tw-bg-warn;
+  }
+
+  &_danger &__item_filled {
+    @apply tw-bg-error;
+  }
+
+  &_success &__item_filled {
+    @apply tw-bg-success;
+  }
+}

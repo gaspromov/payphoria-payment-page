@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="onCreate()">
+  <h1>Создание платежа</h1>
+
+  <fieldset>
+    <p class="merchant-name">{{ merchantName$ | async }}</p>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Сумма платежа</mat-label>
+      <input type="number" matInput formControlName="amount" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Валюта</mat-label>
+      <mat-select formControlName="currency">
+        @for (item of currencies$ | async; track item.id) {
+        <mat-option [value]="item.id">
+          {{ item.name }} {{ item.symbol }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </fieldset>
+
+  <button mat-flat-button color="primary" [disabled]="pending()">
+    @if (!pending()) { 
+      Перейти к оплате 
+    } @else {
+      <mat-spinner [diameter]="26" [strokeWidth]="3" />
+    }
+  </button>
+</form>

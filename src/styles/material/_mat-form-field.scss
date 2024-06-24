@@ -1,0 +1,21 @@
+.mat-mdc-form-field {
+  @include mat.form-field-density(-4);
+  --mdc-outlined-text-field-focus-label-text-color: #f4f4f4;
+  --mdc-outlined-text-field-focus-outline-color: #f4f4f4;
+  --mdc-outlined-text-field-label-text-color: #f4f4f44d;
+  --mdc-outlined-text-field-hover-label-text-color: #f4f4f44d;
+  --mdc-outlined-text-field-hover-outline-color: #f4f4f4;
+  --mdc-outlined-text-field-outline-color: #f4f4f4;
+
+  .mat-mdc-input-element {
+    @apply tw-mt-1;
+  }
+}
+
+.mat-mdc-option {
+  --mat-option-selected-state-label-text-color: #f4f4f4;
+}
+
+.mat-mdc-form-field-bottom-align {
+  @apply tw-hidden;
+}

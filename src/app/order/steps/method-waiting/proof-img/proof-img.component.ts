@@ -37,9 +37,7 @@ export class ProofImgComponent {
       .pipe(finalize(() => this.pending.set(false)))
       .subscribe({
         next: (res) => this.store.order.patchProofImg(res.proofImg),
-        error: () => {
-          // todo: Error notify
-        },
+        error: () => {},
       });
   }
 

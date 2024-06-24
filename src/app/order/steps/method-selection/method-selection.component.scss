@@ -1,0 +1,27 @@
+form {
+  @apply tw-grid tw-gap-5;
+}
+
+.methods-container {
+  @apply tw-grid tw-gap-2.5 md:tw-grid-cols-[repeat(auto-fit,_minmax(200px,_400px))];
+}
+
+.method {
+  @apply tw-px-2.5 tw-h-[60px] tw-flex tw-gap-2.5 tw-justify-start tw-box-border tw-rounded-[5px];
+  @apply tw-bg-secondary tw-border tw-border-solid tw-border-transparent;
+  @apply tw-transition-all;
+
+  @apply max-md:tw-max-w-96 max-md:tw-w-full max-md:tw-justify-self-center;
+
+  &_selected {
+    @apply tw-bg-primary/30 tw-border-primary;
+  }
+
+  &__preview {
+    @apply tw-rounded-full;
+  }
+
+  &__name {
+    @apply tw-text-base tw-font-medium;
+  }
+}

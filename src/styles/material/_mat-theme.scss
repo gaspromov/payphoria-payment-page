@@ -2,11 +2,11 @@
 
 @include mat.core();
 
-$primary-color: #0863ec;
+$primary-color: #289cff;
 
-$dark-primary-color: #fff;
+$accent-color: #222222;
 
-$error-color: #da3a3a;
+$error-color: #d03a3a;
 
 $primary-colors: (
   500: $primary-color,
@@ -16,9 +16,9 @@ $primary-colors: (
 );
 
 $accent-colors: (
-  500: $dark-primary-color,
-  700: $dark-primary-color,
-  900: $dark-primary-color,
+  500: $accent-color,
+  700: $accent-color,
+  900: $accent-color,
   contrast: (),
 );
 
@@ -42,3 +42,6 @@ $theme: mat.define-dark-theme(
 @include mat.all-component-themes($theme);
 
 @import "./mat-icon";
+@import "./mat-button";
+@import "./mat-form-field";
+@import "./mat-snackbar";

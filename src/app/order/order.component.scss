@@ -1,0 +1,10 @@
+:host {
+  @apply tw-grid tw-gap-5;
+}
+
+.payment-method-img {
+  @apply tw-w-10 tw-h-10 tw-rounded-full tw-overflow-hidden;
+  img {
+    @apply tw-object-cover;
+  }
+}

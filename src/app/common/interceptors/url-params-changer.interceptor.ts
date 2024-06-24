@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { combineLatest, switchMap } from 'rxjs';
+import { combineLatest, switchMap, take } from 'rxjs';
 import { Store } from '@pm-store/store';
 import {
   URL_MERCHANT_PARAM,
@@ -14,6 +14,7 @@ export const urlParamsChangerInterceptor: HttpInterceptorFn = (req, next) => {
     store.merchant.selectToken(),
     store.order.selectId(),
   ]).pipe(
+    take(1),
     switchMap(([token, orderId]) => next(mapReqUrl(req, token, orderId)))
   );
 };

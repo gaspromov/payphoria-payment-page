@@ -1,0 +1,35 @@
+<form>
+  <div role="radiogroup" aria-label="Методы оплаты" class="methods-container">
+    @for (method of methods$|async; track method.id) {
+    <button
+      class="method"
+      type="button"
+      role="radio"
+      [class.method_selected]="selectedMethod()?.id === method.id"
+      [attr.aria-selected]="selectedMethod()?.id === method.id"
+    >
+      <img
+        class="method__preview"
+        [ngSrc]="method.image"
+        height="40"
+        width="40"
+        alt=""
+        aria-hidden="true"
+      />
+      <span class="method__name">{{ method.name }}</span>
+    </button>
+    }
+  </div>
+
+  <button
+    mat-flat-button
+    type="submit"
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="pending()"
+  >
+    @if (!pending()) { Продолжить } @else {
+    <mat-spinner [diameter]="26" [strokeWidth]="3" />
+    }
+  </button>
+</form>

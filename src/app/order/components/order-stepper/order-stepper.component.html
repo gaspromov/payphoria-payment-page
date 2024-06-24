@@ -1,0 +1,19 @@
+<ng-container *ngVar="stepData()! as stepData">
+  <h3>{{ stepData.name }}</h3>
+  <div
+    class="stepper"
+    [ngClass]="{
+      stepper_warn: stepData.status === OrderStatuses.FAILED,
+      stepper_danger: stepData.status === OrderStatuses.CANCELED,
+      stepper_success: stepData.status === OrderStatuses.SUCCESS
+    }"
+    aria-hidden="true"
+  >
+    @for (item of steps; track $index) {
+    <span
+      class="stepper__item"
+      [class.stepper__item_filled]="stepData.index >= $index"
+    ></span>
+    }
+  </div>
+</ng-container>

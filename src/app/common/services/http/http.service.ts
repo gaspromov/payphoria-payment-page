@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { HttpRequestData } from './http.models';
 import { Observable, throwError } from 'rxjs';
 import { API_URL } from './http.consts';
-import { Store } from '@pm-store/store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient) {}
 
   request<Response>(
     reqParams: HttpRequestData,

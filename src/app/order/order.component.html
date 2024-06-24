@@ -1,0 +1,28 @@
+<div class="tw-flex tw-justify-between">
+    <pm-order-amount />
+    @if(paymentMethodImg(); as img){
+        <div class="payment-method-img">
+            <img [src]="img" alt="">
+        </div>
+    }
+</div>
+  
+<pm-order-stepper />
+
+@switch (status()) {
+    @case (OrderStatuses.PAYMENT_METHOD_SELECTION) {
+        <pm-method-selection />
+    } @case (OrderStatuses.PAYMENT_METHOD_WAITING) {
+        <pm-method-waiting />
+    } @case (OrderStatuses.PAYMENT_TRANSFER_WAITING) {
+        <pm-transfer-waiting />
+    } @case (OrderStatuses.PAYMENT_APPROVE_WAITING) {
+        <pm-approve-waiting />
+    } @case (OrderStatuses.SUCCESS) {
+        <pm-order-success />
+    } @case (OrderStatuses.FAILED) {
+        <pm-order-failed />
+    } @case (OrderStatuses.CANCELED) {
+        <pm-order-canceled />
+    }
+}

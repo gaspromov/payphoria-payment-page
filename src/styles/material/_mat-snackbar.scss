@@ -1,0 +1,6 @@
+.mdc-snackbar.snackbar {
+  &_warn {
+    --mdc-snackbar-container-color: #401c1c;
+    --mdc-snackbar-supporting-text-color: #ff4a4a;
+  }
+}

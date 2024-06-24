@@ -8,6 +8,10 @@
 
 body {
   @extend .csd-scroll;
+  background-color: #101010;
+
+  @apply tw-bg-cover tw-bg-center tw-bg-no-repeat;
+  background-image: url("/assets/images/main-bg.svg");
   height: 100%;
 }
 
@@ -15,10 +19,11 @@ html,
 body,
 pm-root {
   @apply tw-min-h-screen tw-grid tw-p-0 tw-m-0;
-  @apply tw-text-black;
+  @apply tw-text-white;
 }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Inter", sans-serif;
 }
+

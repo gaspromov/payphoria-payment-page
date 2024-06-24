@@ -3,6 +3,8 @@ import { OrderDTO } from '@pm-models/order/order.models';
 import { HttpService } from '@pm-services/http/http.service';
 import { COMMON_REQUESTS } from 'app/common/requests/common.requests';
 import {
+  BehaviorSubject,
+  ReplaySubject,
   Subject,
   catchError,
   finalize,
@@ -23,9 +25,9 @@ export class OrderStore {
   readonly pending$;
 
   readonly #data$ = new Subject<OrderDTO>();
-  readonly #id$ = new Subject<string>();
-  readonly #merchantOrderId$ = new Subject<string>();
-  readonly #pending$ = new Subject<boolean>();
+  readonly #id$ = new BehaviorSubject<string>('');
+  readonly #merchantOrderId$ = new ReplaySubject<string>();
+  readonly #pending$ = new BehaviorSubject(false);
 
   constructor(private http: HttpService) {
     this.data$ = this.#data$.asObservable().pipe(shareReplay(1));
@@ -52,9 +54,7 @@ export class OrderStore {
       .pipe(finalize(() => this.#pending$.next(false)))
       .subscribe({
         next: (data) => this.#data$.next(data),
-        error: (err) => {
-          // todo: ERROR NOTIFY HERE
-        },
+        error: () => {},
       });
   }
 
@@ -65,12 +65,7 @@ export class OrderStore {
       tap(
         (order) => this.#data$.next(order),
         finalize(() => this.#pending$.next(false))
-      ),
-      catchError((err) => {
-        // todo: ERROR NOTIFY HERE
-
-        return throwError(() => err);
-      })
+      )
     );
   }
 

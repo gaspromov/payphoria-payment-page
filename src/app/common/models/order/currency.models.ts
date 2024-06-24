@@ -1,6 +1,6 @@
 /** Валюта */
 export interface CurrencyDTO {
-  id: string;
+  id: number;
 
   /** Название на русском */
   name: string;

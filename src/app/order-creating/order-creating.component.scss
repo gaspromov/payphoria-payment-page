@@ -1,0 +1,19 @@
+:host {
+  @apply tw-grid;
+}
+
+form {
+  @apply tw-grid tw-justify-self-center tw-max-w-96 tw-w-full tw-gap-5;
+}
+
+fieldset {
+  @apply tw-grid tw-gap-3;
+}
+
+h1 {
+  @apply tw-text-xl tw-leading-[30px] tw-font-bold;
+}
+
+.merchant-name {
+  @apply tw-text-base tw-font-medium tw-text-primary;
+}

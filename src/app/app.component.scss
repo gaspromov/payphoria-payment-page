@@ -1,0 +1,24 @@
+:host {
+  @apply tw-grid tw-gap-5 md:tw-p-6 max-md:tw-py-10 max-md:tw-px-2 tw-content-center tw-box-border;
+
+  > * {
+    @apply tw-justify-self-center tw-max-w-4xl tw-w-full;
+    max-width: var(--max-content-width);
+  }
+}
+
+.row {
+  @apply tw-grid tw-grid-flow-col tw-justify-between tw-items-center;
+}
+
+#copyright {
+  @apply tw-text-white/30 tw-font-medium tw-text-sm;
+}
+
+.window {
+  @apply tw-p-5 tw-rounded-[10px] tw-bg-accent tw-relative;
+}
+
+footer {
+  @apply tw-grid tw-justify-center tw-h-10 tw-items-center;
+}
