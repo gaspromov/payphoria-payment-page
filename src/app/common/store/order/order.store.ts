@@ -54,7 +54,7 @@ export class OrderStore {
       .pipe(finalize(() => this.#pending$.next(false)))
       .subscribe({
         next: (data) => this.#data$.next(data),
-        error: () => {},
+        error: () => this.#data$.error('Failed to get Order'),
       });
   }
 
@@ -62,10 +62,8 @@ export class OrderStore {
     this.#pending$.next(true);
 
     return this.http.request<OrderDTO>(COMMON_REQUESTS.NEXT_ORDER, data).pipe(
-      tap(
-        (order) => this.#data$.next(order),
-        finalize(() => this.#pending$.next(false))
-      )
+      tap((order) => this.#data$.next(order)),
+      finalize(() => this.#pending$.next(false))
     );
   }
 

@@ -12,7 +12,7 @@ import { ActivatedRoute, Params, RouterOutlet } from '@angular/router';
 import { QUERY_PARAMS_NAMES } from '@pm-consts/query-params-names.consts';
 import { OrderStatuses } from '@pm-models/order/order.models';
 import { Store } from '@pm-store/store';
-import { filter, map } from 'rxjs';
+import { Subject, filter, map, takeUntil } from 'rxjs';
 import { OrderCreatingComponent } from './order-creating/order-creating.component';
 import { HttpService } from '@pm-services/http/http.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -77,12 +77,20 @@ export class AppComponent implements OnInit {
     this.store.order
       .selectData()
       .pipe(takeUntilDestroyed(this.#destroyRef), filter(Boolean))
-      .subscribe(() => this.state.set(PageStates.ORDER));
+      .subscribe({
+        next: () => this.state.set(PageStates.ORDER),
+        error: () => this.state.set(PageStates.WRONG_DATA),
+      });
   }
 
   private setInitialStates() {
+    const subCompleter$ = new Subject<void>();
     this.activatedRoute.queryParams
-      .pipe(map((queryParams) => this.getInitialData(queryParams)))
+      .pipe(
+        map((queryParams) => this.getInitialData(queryParams)),
+        takeUntilDestroyed(this.#destroyRef),
+        takeUntil(subCompleter$)
+      )
       .subscribe(({ merchantOrderId, merchantToken, orderId }) => {
         if (!merchantToken) {
           this.state.set(PageStates.WRONG_DATA);
@@ -104,6 +112,8 @@ export class AppComponent implements OnInit {
         } else {
           this.state.set(PageStates.WRONG_DATA);
         }
+        subCompleter$.next();
+        subCompleter$.complete();
       });
   }
 

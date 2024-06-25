@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { PLATFORM_ID, inject } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpInterceptorFn,
@@ -6,9 +6,11 @@ import {
 } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { isPlatformBrowser } from '@angular/common';
 
 export const errorsHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   const snBar = inject(MatSnackBar);
+  const platformId = inject(PLATFORM_ID);
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
@@ -34,7 +36,7 @@ export const errorsHandlerInterceptor: HttpInterceptorFn = (req, next) => {
         msg = `${err.error.message || err.error.error || err.message}`;
       }
 
-      if (msg) {
+      if (msg && isPlatformBrowser(platformId)) {
         snBar.open(msg, undefined, {
           duration: 4000,
           panelClass: 'snackbar_warn',
