@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MerchantDTO } from '@pm-models/merchant.models';
 import { HttpService } from '@pm-services/http/http.service';
 import { COMMON_REQUESTS } from 'app/common/requests/common.requests';
-import { ReplaySubject, shareReplay } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class MerchantStore {
   readonly token$;
   readonly data$;
 
-  readonly #token$ = new ReplaySubject<string>(1);
+  readonly #token$ = new BehaviorSubject<string | null>(null);
   readonly #data$ = new ReplaySubject<MerchantDTO>(1);
 
   constructor(private http: HttpService) {

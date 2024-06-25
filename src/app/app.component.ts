@@ -61,11 +61,7 @@ export class AppComponent implements OnInit {
 
   readonly maxWidth = signal<string | null>(null);
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private store: Store,
-    private http: HttpService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute, private store: Store) {}
 
   @HostBinding('style.--max-content-width')
   get _maxWidth() {
