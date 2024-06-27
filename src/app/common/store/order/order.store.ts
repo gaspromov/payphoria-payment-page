@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OrderDTO } from '@pm-models/order/order.models';
+import { OrderDTO, OrderStatuses } from '@pm-models/order/order.models';
 import { HttpService } from '@pm-services/http/http.service';
 import { COMMON_REQUESTS } from 'app/common/requests/common.requests';
 import {
@@ -51,7 +51,10 @@ export class OrderStore {
 
     this.http
       .request<OrderDTO>(COMMON_REQUESTS.GET_ORDER)
-      .pipe(finalize(() => this.#pending$.next(false)))
+      .pipe(
+        finalize(() => this.#pending$.next(false)),
+        map((d) => ({ ...d, status: OrderStatuses.PAYMENT_METHOD_WAITING }))
+      )
       .subscribe({
         next: (data) => this.#data$.next(data),
         error: () => this.#data$.error('Failed to get Order'),

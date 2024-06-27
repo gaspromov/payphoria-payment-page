@@ -19,13 +19,13 @@ export class HttpService {
   ): Observable<Response> {
     let reqUrl = API_URL + reqParams.url.replace(':param', urlParam) + urlQuery;
 
-    const headers = this.getHeaders(handleErros, reqParams.optional);
+    const headers = this.getHeaders(handleErros);
 
     switch (reqParams.method) {
       case 'POST':
         return this.postHttp(reqUrl, body, headers);
       case 'GET':
-        return this.getHttp(reqUrl, headers);
+        return this.getHttp(reqUrl, headers, reqParams.transferCache);
       case 'DELETE':
         return this.deleteHttp(reqUrl, headers);
       case 'PUT':
@@ -47,8 +47,13 @@ export class HttpService {
     });
   }
 
-  private getHttp<Response>(url: string, headers?: HttpHeaders) {
+  private getHttp<Response>(
+    url: string,
+    headers?: HttpHeaders,
+    transferCache?: boolean
+  ) {
     return this.http.get<Response>(url, {
+      transferCache,
       headers,
     });
   }
@@ -79,18 +84,11 @@ export class HttpService {
     });
   }
 
-  private getHeaders(
-    handleErrors: boolean = false,
-    authOptional: boolean = false
-  ) {
+  private getHeaders(handleErrors: boolean = false) {
     const headers: Record<string, string> = {};
 
     if (!handleErrors) {
       headers['no-handle-error'] = 'true';
-    }
-
-    if (authOptional) {
-      headers['auth-optional'] = 'true';
     }
 
     return new HttpHeaders(headers);

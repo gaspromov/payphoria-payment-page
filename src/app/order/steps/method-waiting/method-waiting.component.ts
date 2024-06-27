@@ -1,4 +1,4 @@
-import { isPlatformServer } from '@angular/common';
+import { AsyncPipe, isPlatformServer } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,10 +21,10 @@ import { interval } from 'rxjs';
   styleUrl: './method-waiting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatProgressSpinner, MatProgressBar],
+  imports: [MatProgressSpinner, MatProgressBar, AsyncPipe],
 })
 export class MethodWaitingComponent implements OnInit {
-  readonly pending = signal(this.store.order.selectPending());
+  readonly pending$ = this.store.order.selectPending();
 
   readonly #destroyRef = inject(DestroyRef);
 
