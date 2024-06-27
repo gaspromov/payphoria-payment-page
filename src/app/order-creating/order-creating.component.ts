@@ -28,6 +28,8 @@ import { HttpRequestData } from '@pm-services/http/http.models';
 import { CurrencyDTO } from '@pm-models/order/currency.models';
 import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { QUERY_PARAMS_NAMES } from '@pm-consts/query-params-names.consts';
 
 const GET_CYRRENCIES_REQ: HttpRequestData = {
   url: '/currencies',
@@ -48,6 +50,7 @@ const GET_CYRRENCIES_REQ: HttpRequestData = {
     MatSelectModule,
     AsyncPipe,
     MatProgressSpinner,
+    RouterModule,
   ],
   standalone: true,
 })
@@ -70,7 +73,12 @@ export class OrderCreatingComponent implements OnInit, OnDestroy {
   readonly pending = signal(false);
   readonly currencies$ = this.getCurrency();
 
-  constructor(private http: HttpService, private store: Store) {}
+  constructor(
+    private http: HttpService,
+    private store: Store,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.inited.emit();
@@ -102,9 +110,23 @@ export class OrderCreatingComponent implements OnInit, OnDestroy {
         finalize(() => this.pending.set(false))
       )
       .subscribe({
-        next: (order) => this.store.order.setData(order),
+        next: (order) => {
+          this.store.order.setData(order);
+          this.patchQueryParamsOrderId(order.id);
+        },
         error: () => {},
       });
+  }
+
+  private patchQueryParamsOrderId(orderId: string) {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        [QUERY_PARAMS_NAMES.ORDER_ID]: orderId,
+        [QUERY_PARAMS_NAMES.MERCHANT_ORDER_ID]: undefined,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   private getCurrency() {
