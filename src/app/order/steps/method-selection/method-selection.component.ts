@@ -5,18 +5,25 @@ import {
   GET_METHOD_SELECTION_REQ,
 } from './consts/method-selection.requests';
 import { PaymentMethodDTO } from '@pm-models/order/payment-method.models';
-import { finalize, shareReplay, switchMap } from 'rxjs';
+import { finalize, shareReplay, switchMap, take } from 'rxjs';
 import { Store } from '@pm-store/store';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButton } from '@angular/material/button';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'pm-method-selection',
   templateUrl: './method-selection.component.html',
   styleUrl: './method-selection.component.scss',
-  imports: [AsyncPipe, MatButton, MatProgressSpinner, NgOptimizedImage],
+  imports: [
+    AsyncPipe,
+    MatButton,
+    MatProgressSpinner,
+    NgOptimizedImage,
+    MatRipple,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
@@ -48,6 +55,7 @@ export class MethodSelectionComponent {
     this.store.order
       .selectData()
       .pipe(
+        take(1),
         switchMap((order) =>
           this.http.request<{ result: string }>(GET_HMAC_HASH_REQ, {
             string: `${order.amount}::${order.currency.id}`,
@@ -58,7 +66,8 @@ export class MethodSelectionComponent {
             paymentMethod: selectedMethod.id,
             hmacHash: result,
           })
-        )
+        ),
+        take(1)
       )
       .pipe(finalize(() => this.pending.set(false)))
       .subscribe({ error: () => {} });

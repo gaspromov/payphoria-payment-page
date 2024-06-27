@@ -8,6 +8,9 @@
       [class.method_selected]="selectedMethod()?.id === method.id"
       [attr.aria-selected]="selectedMethod()?.id === method.id"
       (click)="selectedMethod.set(method)"
+      matRipple
+      matRippleColor="#ffffff08"
+      [disabled]="pending()"
     >
       <div class="method__preview-wrapper">
         <img
