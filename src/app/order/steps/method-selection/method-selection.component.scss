@@ -3,11 +3,11 @@ form {
 }
 
 .methods-container {
-  @apply tw-grid tw-gap-2.5 md:tw-grid-cols-[repeat(auto-fit,_minmax(200px,_400px))];
+  @apply tw-grid tw-gap-2.5 md:tw-grid-cols-[repeat(auto-fit,_minmax(150px,_350px))];
 }
 
 .method {
-  @apply tw-px-2.5 tw-h-[60px] tw-flex tw-gap-2.5 tw-justify-start tw-box-border tw-rounded-[5px];
+  @apply tw-px-2.5 tw-h-[60px] tw-flex tw-gap-2.5 tw-justify-start tw-items-center tw-box-border tw-rounded-[5px];
   @apply tw-bg-secondary tw-border tw-border-solid tw-border-transparent;
   @apply tw-transition-all;
 
@@ -21,7 +21,11 @@ form {
     @apply tw-rounded-full;
   }
 
+  &__preview-wrapper {
+    @apply tw-bg-white tw-rounded-full tw-h-10 tw-w-10 tw-grid tw-place-content-center;
+  }
+
   &__name {
-    @apply tw-text-base tw-font-medium;
+    @apply tw-text-base tw-font-medium tw-text-white;
   }
 }

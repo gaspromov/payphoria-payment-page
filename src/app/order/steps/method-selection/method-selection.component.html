@@ -7,15 +7,18 @@
       role="radio"
       [class.method_selected]="selectedMethod()?.id === method.id"
       [attr.aria-selected]="selectedMethod()?.id === method.id"
+      (click)="selectedMethod.set(method)"
     >
-      <img
-        class="method__preview"
-        [ngSrc]="method.image"
-        height="40"
-        width="40"
-        alt=""
-        aria-hidden="true"
-      />
+      <div class="method__preview-wrapper">
+        <img
+          class="method__preview"
+          [ngSrc]="method.image"
+          height="30"
+          width="30"
+          alt=""
+          aria-hidden="true"
+        />
+      </div>
       <span class="method__name">{{ method.name }}</span>
     </button>
     }

@@ -38,7 +38,8 @@ export class Store {
 
   get pageCongif() {
     return {
-      selectData: () => this.#pageConfig.pageConfig$,
+      selectData: () => this.#pageConfig.data$,
+      fetchData: () => this.#pageConfig.fetch(),
     };
   }
 }

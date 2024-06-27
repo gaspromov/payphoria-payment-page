@@ -14,7 +14,6 @@ import { OrderStatuses } from '@pm-models/order/order.models';
 import { Store } from '@pm-store/store';
 import { Subject, filter, map, takeUntil } from 'rxjs';
 import { OrderCreatingComponent } from './order-creating/order-creating.component';
-import { HttpService } from '@pm-services/http/http.service';
 import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { OrderComponent } from './order/order.component';
@@ -100,6 +99,7 @@ export class AppComponent implements OnInit {
         if (merchantToken) {
           this.store.merchant.setToken(merchantToken);
           this.store.merchant.fetchData();
+          this.store.pageCongif.fetchData();
         }
 
         if (orderId) {

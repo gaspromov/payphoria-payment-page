@@ -12,6 +12,7 @@
       alt="Transfera logo"
     />
   </a>
+
   <a
     *ngVar="(pageConfig$ | async)?.supportLink as link"
     [href]="link"
@@ -23,30 +24,28 @@
   </a>
 </header>
 
-<div 
-  class="window" 
-  id="content" 
+<div
+  class="window"
+  id="content"
   [class.window_danger]="state() === PageStates.WRONG_DATA"
 >
-  @switch (state()) { 
-    @case (PageStates.PENDING) {
-      <div class="tw-grid tw-py-10 tw-justify-center">
-        <mat-spinner [diameter]="90" [strokeWidth]="7" />
-      </div>
-    } @case (PageStates.ORDER_CREATING) {
-      <pm-order-creating
-        (destroyed)="maxWidth.set(null)"
-        (inited)="maxWidth.set('400px')"
-      />
-    } @case (PageStates.ORDER) {
-      <pm-order />
-    } @case (PageStates.WRONG_DATA) { 
-      <pm-page-params-failed 
-        (destroyed)="maxWidth.set(null)"
-        (inited)="maxWidth.set('410px')" 
-      />
-    }
-  }
+  @switch (state()) { @case (PageStates.PENDING) {
+  <div class="tw-grid tw-py-10 tw-justify-center">
+    <mat-spinner [diameter]="90" [strokeWidth]="7" />
+  </div>
+  } @case (PageStates.ORDER_CREATING) {
+  <pm-order-creating
+    (destroyed)="maxWidth.set(null)"
+    (inited)="maxWidth.set('400px')"
+  />
+  } @case (PageStates.ORDER) {
+  <pm-order />
+  } @case (PageStates.WRONG_DATA) {
+  <pm-page-params-failed
+    (destroyed)="maxWidth.set(null)"
+    (inited)="maxWidth.set('410px')"
+  />
+  } }
 </div>
 
 <footer>
