@@ -1,5 +1,5 @@
-:host{
-    @apply tw-grid tw-gap-5;
+:host {
+  @apply tw-grid tw-gap-5;
 }
 
 mat-form-field {
@@ -12,7 +12,57 @@ mat-form-field {
   --mdc-outlined-text-field-outline-width: 0px;
 }
 
-input {
-  @apply tw-w-full tw-h-[50px] tw-rounded-[5px] tw-bg-secondary tw-text-white tw-border-none;
-  @apply tw-text-xl tw-font-bold tw-pl-4;
+.pm-form-field {
+  @apply tw-w-full tw-h-[50px] tw-rounded-[5px] tw-bg-secondary tw-pl-4;
+  @apply tw-items-center tw-grid tw-grid-flow-col tw-cursor-text;
+  @apply tw-box-border;
+  grid-template-columns: auto auto 1fr;
+  @apply tw-outline-none;
+
+  @apply tw-border tw-border-solid tw-border-transparent;
+  @apply tw-transition-colors;
+
+  &_focused {
+    @apply tw-border-secondary-hover/70 tw-border-secondary-hover/70;
+  }
+
+  &_invalid {
+    @apply tw-border-error;
+  }
+
+  &__container {
+    @apply tw-relative tw-grid tw-h-full;
+  }
+
+  &__input-value,
+  &__input,
+  &__symbol {
+    @apply tw-text-xl tw-font-bold tw-text-white;
+  }
+
+  &__symbol {
+    @apply tw-ml-1;
+  }
+
+  &__input-value {
+    @apply tw-opacity-0 tw-pointer-events-none;
+
+    &_empty {
+      @apply tw-w-2;
+    }
+  }
+
+  &__input {
+    @apply tw-bg-white/0 tw-h-full tw-w-full tw-border-none tw-absolute tw-left-0 tw-top-0 tw-p-0 tw-outline-none;
+  }
+
+  button {
+    --mdc-icon-button-state-layer-size: 44px;
+
+    img {
+      height: 19px;
+      width: 16px;
+      @apply tw-mb-0.5;
+    }
+  }
 }

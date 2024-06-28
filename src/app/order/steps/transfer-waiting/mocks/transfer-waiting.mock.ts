@@ -11,7 +11,7 @@ export const TRANSFER_WAITING_ORDER_MOCK = {
     name: 'Рубль PAY-IN',
     symbol: '₽',
   },
-  expiresAt: '2024-06-28T15:12:37.745677+00:00',
+  expiresAt: '2024-06-28T16:12:37.745677+00:00',
   id: '0667ed08-b72a-72f9-8000-bdc354fac247',
   payment: {
     bank: 'N/A',

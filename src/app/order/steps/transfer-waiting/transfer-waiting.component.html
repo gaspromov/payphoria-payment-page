@@ -1,9 +1,51 @@
 <!-- <mat-form-field appearance="outline">
   <input type="number" matInput [formControl]="amountControl" />
 </mat-form-field> -->
-<ng-container *ngVar="paymentData$ | async as paymentData"> </ng-container>
+<ng-container *ngVar="(order$ | async)! as order">
+  <label
+    class="pm-form-field"
+    [ngClass]="{
+      'pm-form-field_invalid': amountControl.invalid && amountControl.touched,
+      'pm-form-field_focused': inputFocused()
+    }"
+  >
+    <span class="pm-form-field__container">
+      <span
+        class="pm-form-field__input-value"
+        aria-hidden="true"
+        [class.pm-form-field__input-value_empty]="!amountControl.value"
+      >
+        {{ amountControl.value }}
+      </span>
+      <input
+        (focus)="inputFocused.set(true)"
+        (blur)="inputFocused.set(false)"
+        type="text"
+        class="pm-form-field__input"
+        [formControl]="amountControl"
+      />
+    </span>
+    <span class="pm-form-field__symbol">
+      {{ order.currency.symbol }}
+    </span>
 
-<input type="text" [formControl]="amountControl" />
+    <button
+      mat-icon-button
+      aria-label="Скопировать сумму"
+      class="tw-justify-self-end"
+      (click)="onCopy($event)"
+    >
+      <img
+        ngSrc="/assets/icons/copy.svg"
+        alt=""
+        height="19"
+        width="16"
+        loading="lazy"
+      />
+    </button>
+  </label>
+</ng-container>
+
 <button
   mat-flat-button
   color="primary"

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { OrderDTO, OrderStatuses } from '@pm-models/order/order.models';
 import { HttpService } from '@pm-services/http/http.service';
 import { COMMON_REQUESTS } from 'app/common/requests/common.requests';
+import { TRANSFER_WAITING_ORDER_MOCK } from 'app/order/steps/transfer-waiting/mocks/transfer-waiting.mock';
 import {
   BehaviorSubject,
   ReplaySubject,
@@ -9,6 +10,7 @@ import {
   catchError,
   finalize,
   map,
+  of,
   shareReplay,
   take,
   tap,
@@ -52,8 +54,9 @@ export class OrderStore {
     this.http
       .request<OrderDTO>(COMMON_REQUESTS.GET_ORDER)
       .pipe(
-        finalize(() => this.#pending$.next(false))
-        // map((d) => ({ ...d, status: OrderStatuses.PAYMENT_METHOD_WAITING }))
+        finalize(() => this.#pending$.next(false)),
+        // TODO: удалить мок
+        catchError(() => of(TRANSFER_WAITING_ORDER_MOCK))
       )
       .subscribe({
         next: (data) => this.#data$.next(data),

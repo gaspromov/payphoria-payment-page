@@ -3,4 +3,9 @@
     --mdc-snackbar-container-color: #401c1c;
     --mdc-snackbar-supporting-text-color: #ff4a4a;
   }
+
+  &_primary {
+    --mdc-snackbar-container-color: #289cff20;
+    --mdc-snackbar-supporting-text-color: #289cff;
+  }
 }

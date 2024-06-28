@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MerchantDTO } from '@pm-models/merchant.models';
 import { HttpService } from '@pm-services/http/http.service';
+import { MERCHANT_MOCK } from 'app/common/mocks/merchant.mock';
 import { COMMON_REQUESTS } from 'app/common/requests/common.requests';
-import { BehaviorSubject, ReplaySubject, shareReplay } from 'rxjs';
+import {
+  BehaviorSubject,
+  ReplaySubject,
+  catchError,
+  of,
+  shareReplay,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,9 +31,13 @@ export class MerchantStore {
   }
 
   fetchData() {
-    this.http.request<MerchantDTO>(COMMON_REQUESTS.GET_MERCHANT).subscribe({
-      next: (data) => this.#data$.next(data),
-      error: () => {},
-    });
+    this.http
+      .request<MerchantDTO>(COMMON_REQUESTS.GET_MERCHANT)
+      // TODO: удалить мок
+      .pipe(catchError(() => of(MERCHANT_MOCK)))
+      .subscribe({
+        next: (data) => this.#data$.next(data),
+        error: () => {},
+      });
   }
 }
