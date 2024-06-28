@@ -12,16 +12,16 @@ export interface OrderDTO {
   currency: CurrencyDTO;
 
   /** Дата создания */
-  createdAt: number;
+  createdAt: string;
   /** Дата последнего изменения */
-  updatedAt: number;
+  updatedAt: string;
 
   /**
    * Дата просрочки заказа.
    *
    * Появляется на статусах PAYMENT_TRANSFER_WAITING и PAYMENT_APPROVE_WAITING
    **/
-  expiresAt?: number;
+  expiresAt?: string;
 
   /** Текущий статус */
   status: OrderStatuses;
