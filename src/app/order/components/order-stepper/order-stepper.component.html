@@ -1,4 +1,4 @@
-<ng-container *ngVar="stepData()! as stepData">
+@if(stepData$ | async; as stepData){
   <h3>{{ stepData.name }}</h3>
   <div
     class="stepper"
@@ -10,12 +10,14 @@
     aria-hidden="true"
   >
     @for (item of steps; track $index) {
-    <span
-      class="stepper__item"
-      [class.stepper__item_filled]="stepData.index >= $index"
-    ></span>
+      <span
+        class="stepper__item"
+        [class.stepper__item_filled]="stepData.index >= $index"
+      ></span>
     }
   </div>
 
-  <pm-order-timer />
-</ng-container>
+  @if (isTimerVisible$ | async) {
+    <pm-order-timer />
+  } 
+}

@@ -3,5 +3,6 @@
 }
 
 .payment-method-img {
-  @apply tw-w-10 tw-h-10 tw-rounded-full tw-overflow-hidden;
+  @apply tw-w-10 tw-h-10 tw-rounded-full tw-overflow-hidden tw-bg-white;
+  @apply tw-grid tw-place-content-center;
 }

@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -38,11 +38,19 @@ const STEPS_NAMES: Record<OrderStatuses, string> = {
   templateUrl: './order-stepper.component.html',
   styleUrl: './order-stepper.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgVarDirective, NgClass, OrderTimerComponent],
+  imports: [NgVarDirective, NgClass, OrderTimerComponent, AsyncPipe],
   standalone: true,
 })
 export class OrderStepperComponent {
-  readonly stepData = toSignal(this.getStepData());
+  readonly stepData$ = this.getStepData();
+  readonly isTimerVisible$ = this.stepData$.pipe(
+    map((d) =>
+      [
+        OrderStatuses.PAYMENT_APPROVE_WAITING,
+        OrderStatuses.PAYMENT_TRANSFER_WAITING,
+      ].includes(d.status)
+    )
+  );
   readonly OrderStatuses = OrderStatuses;
 
   get steps() {
