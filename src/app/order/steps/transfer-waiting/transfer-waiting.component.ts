@@ -1,4 +1,9 @@
-import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgOptimizedImage,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -41,6 +46,7 @@ import { finalize, map, take } from 'rxjs';
     MatProgressSpinner,
     NgClass,
     NgOptimizedImage,
+    NgTemplateOutlet,
   ],
 })
 export class TransferWaitingComponent implements OnInit {
@@ -81,8 +87,8 @@ export class TransferWaitingComponent implements OnInit {
       .subscribe({ error: () => {} });
   }
 
-  onCopy(event: MouseEvent) {
+  onCopy(data: string | number, event: MouseEvent) {
     event.stopPropagation();
-    this.utils.copy(String(this.amountControl.value));
+    this.utils.copy(String(data));
   }
 }

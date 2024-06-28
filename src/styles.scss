@@ -30,3 +30,15 @@ body {
 .pm-container {
   @apply tw-bg-secondary tw-rounded-[5px] tw-px-2.5 tw-grid;
 }
+
+.pm-alert {
+  @apply tw-text-warn tw-pl-[22px] tw-relative;
+
+  &::before {
+    content: "";
+    @apply tw-block tw-w-[17px] tw-h-[15px];
+    @apply tw-bg-cover tw-bg-center;
+
+    @apply tw-absolute tw-top-1/2 tw-left-0 -tw-translate-y-1/2;
+  }
+}

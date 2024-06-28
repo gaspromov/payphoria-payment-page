@@ -56,13 +56,78 @@ mat-form-field {
     @apply tw-bg-white/0 tw-h-full tw-w-full tw-border-none tw-absolute tw-left-0 tw-top-0 tw-p-0 tw-outline-none;
   }
 
-  button {
-    --mdc-icon-button-state-layer-size: 44px;
+  .copy-btn {
+    @apply tw-mr-1.5;
+    @apply tw-justify-self-end;
+  }
+}
 
-    img {
-      height: 19px;
-      width: 16px;
-      @apply tw-mb-0.5;
+.step {
+  @apply tw-grid tw-grid-cols-[40px_1fr] tw-gap-2.5;
+
+  &__index {
+    @apply tw-bg-primary/30 tw-rounded-[5px] tw-h-10 tw-w-10 tw-flex tw-justify-center tw-items-center;
+    @apply tw-text-xl tw-leading-5 tw-font-bold tw-text-primary;
+  }
+
+  &__index-wrapper_lined {
+    @apply tw-relative;
+
+    &::after {
+      content: "";
+      @apply md:tw-block tw-hidden;
+      @apply tw-absolute tw-top-10 tw-left-1/2 -tw-translate-x-1/2;
+      @apply tw-h-[calc(100%_-_40px_+_20px)];
+      @apply tw-w-1 tw-bg-primary/30;
     }
+  }
+
+  &__content {
+    @apply tw-grid;
+  }
+}
+
+.normal-text {
+  @apply tw-text-base tw-font-medium;
+}
+
+.small-text {
+  @apply tw-text-sm tw-font-medium;
+}
+
+.transfer {
+  @apply tw-px-4 tw-gap-2.5 tw-justify-items-start;
+
+  &:has(.bank) {
+    @apply tw-py-2.5;
+  }
+
+  &__requisites {
+    @apply tw-text-xl tw-font-semibold;
+    @apply tw-grid tw-grid-flow-col tw-items-center;
+  }
+
+  .copy-btn {
+    @apply tw-ml-2;
+  }
+}
+
+.bank {
+  @apply tw-grid tw-grid-flow-col tw-gap-2.5 tw-justify-self-start;
+  @apply tw-rounded-[20px] tw-bg-accent;
+  @apply tw-px-2.5 tw-h-10;
+
+  &__logo {
+    @apply tw-rounded-full;
+  }
+}
+
+.copy-btn {
+  --mdc-icon-button-state-layer-size: 44px;
+
+  img {
+    height: 19px;
+    width: 16px;
+    @apply tw-mb-0.5;
   }
 }

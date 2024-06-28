@@ -1,49 +1,142 @@
-<!-- <mat-form-field appearance="outline">
-  <input type="number" matInput [formControl]="amountControl" />
-</mat-form-field> -->
 <ng-container *ngVar="(order$ | async)! as order">
-  <label
-    class="pm-form-field"
-    [ngClass]="{
-      'pm-form-field_invalid': amountControl.invalid && amountControl.touched,
-      'pm-form-field_focused': inputFocused()
-    }"
-  >
-    <span class="pm-form-field__container">
-      <span
-        class="pm-form-field__input-value"
-        aria-hidden="true"
-        [class.pm-form-field__input-value_empty]="!amountControl.value"
-      >
-        {{ amountControl.value }}
-      </span>
-      <input
-        (focus)="inputFocused.set(true)"
-        (blur)="inputFocused.set(false)"
-        type="text"
-        class="pm-form-field__input"
-        [formControl]="amountControl"
-      />
-    </span>
-    <span class="pm-form-field__symbol">
-      {{ order.currency.symbol }}
-    </span>
+  <!-- 1 шаг -->
+  <div class="step">
+    <div class="step__index-wrapper_lined">
+      <span class="step__index">1</span>
+    </div>
+    <div class="step__content tw-items-center">
+      <p class="normal-text">
+        {{ order.payment!.firstStepDescription }}
+      </p>
+    </div>
+  </div>
+  <!-- 1 шаг -->
 
-    <button
-      mat-icon-button
-      aria-label="Скопировать сумму"
-      class="tw-justify-self-end"
-      (click)="onCopy($event)"
-    >
-      <img
-        ngSrc="/assets/icons/copy.svg"
-        alt=""
-        height="19"
-        width="16"
-        loading="lazy"
-      />
-    </button>
-  </label>
+  <!-- 2 шаг -->
+  <div class="step">
+    <div class="step__index-wrapper_lined">
+      <span class="step__index">2</span>
+    </div>
+
+    <div class="step__content">
+      <div class="tw-grid tw-content-center tw-h-10 tw-mb-3.4">
+        <p class="normal-text tw-leading-5">
+          Скопируйте реквизиты для перевода
+        </p>
+        @if (order.payment!.comment) {
+        <p class="small-text tw-text-primary tw-leading-4">
+          Комментарий: {{ order.payment!.comment }}
+        </p>
+        }
+      </div>
+
+      <p class="pm-alert normal-text tw-mb-2.5" role="alert">
+        Перепроверяйте реквизиты. В каждом новом платеже он может меняться
+      </p>
+
+      <div class="transfer pm-container">
+        @if (order.payment!.bank; as bank) {
+        <div class="bank">
+          <img
+            [ngSrc]="bank.logo"
+            width="20"
+            height="20"
+            loading="lazy"
+            class="bank__logo"
+            alt="Логотип банка получателя"
+          />
+          <p class="bank__info normal-text">
+            Перевод в {{ bank.name }} ({{ order.payment!.holderName }})
+          </p>
+        </div>
+        }
+
+        <div class="transfer__requisites">
+          <p class="transfer__requisites">{{ order.payment!.requisites }}</p>
+
+          <ng-template
+            *ngTemplateOutlet="
+              copyBtn;
+              context: {
+                label: 'Скопировать реквизиты',
+                data: order.payment!.requisites
+              }
+            "
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 2 шаг -->
+
+  <!-- 3 шаг -->
+  <div class="step">
+    <div class="step__index-wrapper_lined">
+      <span class="step__index"> 3 </span>
+    </div>
+
+    <div class="step__content">
+      <div class="tw-grid tw-content-center tw-h-10 tw-mb-3.5">
+        <p class="normal-text tw-leading-5">Скопируйте и введите сумму</p>
+        <p class="small-text tw-text-primary tw-leading-4">
+          Не забудьте указать копейки в сумме платежа!
+        </p>
+      </div>
+      <label
+        class="pm-form-field"
+        [ngClass]="{
+          'pm-form-field_invalid':
+            amountControl.invalid && amountControl.touched,
+          'pm-form-field_focused': inputFocused()
+        }"
+      >
+        <span class="pm-form-field__container">
+          <span
+            class="pm-form-field__input-value"
+            aria-hidden="true"
+            [class.pm-form-field__input-value_empty]="!amountControl.value"
+          >
+            {{ amountControl.value }}
+          </span>
+          <input
+            (focus)="inputFocused.set(true)"
+            (blur)="inputFocused.set(false)"
+            type="text"
+            class="pm-form-field__input"
+            [formControl]="amountControl"
+          />
+        </span>
+        <span class="pm-form-field__symbol">
+          {{ order.currency.symbol }}
+        </span>
+
+        <ng-template
+          *ngTemplateOutlet="
+            copyBtn;
+            context: {
+              label: 'Скопировать сумму платежа',
+              data: amountControl.value
+            }
+          "
+        />
+      </label>
+      @if (amountControl.valid && amountControl.value !== order.amount){
+      <p class="pm-alert small-text tw-mt-2.5" role="alert">
+        Сумма была изменена на {{ amountControl.value }}
+        {{ order.currency.symbol }}
+      </p>
+      }
+    </div>
+  </div>
+  <!-- 3 шаг -->
+
+  <!-- 4 шаг -->
+  <div class="step">
+    <div class="step__index">4</div>
+    <div class="step__content tw-items-center">
+      <p class="normal-text">После отправления перевода нажмите кнопку ниже</p>
+    </div>
+  </div>
 </ng-container>
 
 <button
@@ -56,3 +149,20 @@
   <mat-spinner [diameter]="26" [strokeWidth]="3" />
   }
 </button>
+
+<ng-template #copyBtn let-label="label" let-data="data">
+  <button
+    mat-icon-button
+    [attr.aria-label]="label"
+    class="copy-btn"
+    (click)="onCopy(data, $event)"
+  >
+    <img
+      ngSrc="/assets/icons/copy.svg"
+      alt=""
+      height="19"
+      width="16"
+      loading="lazy"
+    />
+  </button>
+</ng-template>

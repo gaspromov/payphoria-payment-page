@@ -59,6 +59,8 @@ export interface OrderPaymentDTO {
   requisites: string;
   holderName: string;
   comment?: string;
+  /** Описание первого шага для исполнения платежа */
+  firstStepDescription: string;
   /** Чек, подтверждающий перевод */
   proofImg?: string;
 }
