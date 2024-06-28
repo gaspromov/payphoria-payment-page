@@ -5,7 +5,7 @@ import {
   inject,
 } from '@angular/core';
 import { Store } from '@pm-store/store';
-import { filter, interval, map, switchMap, tap } from 'rxjs';
+import { filter, interval, map, switchMap } from 'rxjs';
 import { differenceInMilliseconds } from 'date-fns';
 import { AsyncPipe, DatePipe, isPlatformServer } from '@angular/common';
 
@@ -29,7 +29,6 @@ export class OrderTimerComponent {
     .order.selectData()
     .pipe(
       map((order) => order.expiresAt!),
-      tap((d) => console.log(d)),
       filter(() => !isPlatformServer(this.#platformId)),
       switchMap((expiresAt) => interval(1000).pipe(map(() => expiresAt))),
       map((expiresAt) => differenceInMilliseconds(expiresAt, new Date()))
