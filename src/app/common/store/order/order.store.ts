@@ -52,8 +52,8 @@ export class OrderStore {
     this.http
       .request<OrderDTO>(COMMON_REQUESTS.GET_ORDER)
       .pipe(
-        finalize(() => this.#pending$.next(false)),
-        map((d) => ({ ...d, status: OrderStatuses.PAYMENT_METHOD_WAITING }))
+        finalize(() => this.#pending$.next(false))
+        // map((d) => ({ ...d, status: OrderStatuses.PAYMENT_METHOD_WAITING }))
       )
       .subscribe({
         next: (data) => this.#data$.next(data),

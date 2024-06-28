@@ -10,6 +10,7 @@ import { OrderStatuses } from '@pm-models/order/order.models';
 import { Store } from '@pm-store/store';
 import { NgVarDirective } from 'app/common/directives/ngvar.directive';
 import { map } from 'rxjs';
+import { OrderTimerComponent } from '../order-timer.component';
 
 const STEPS_INDEXES: Record<OrderStatuses, number> = {
   [OrderStatuses.PAYMENT_METHOD_SELECTION]: 0,
@@ -37,7 +38,7 @@ const STEPS_NAMES: Record<OrderStatuses, string> = {
   templateUrl: './order-stepper.component.html',
   styleUrl: './order-stepper.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgVarDirective, NgClass],
+  imports: [NgVarDirective, NgClass, OrderTimerComponent],
   standalone: true,
 })
 export class OrderStepperComponent {
