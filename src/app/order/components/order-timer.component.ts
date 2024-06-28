@@ -69,7 +69,9 @@ export class OrderTimerComponent implements OnInit, OnDestroy {
     if (isBefore(new Date(expiresAt), new Date())) {
       this.timeLeft.set(0);
       this.#intervalDestroyer$.next();
-      this.snBar.open('Заказ просрочен');
+      this.snBar.open('Заказ просрочен', undefined, {
+        panelClass: 'snackbar_warn',
+      });
       return;
     }
     const difference = differenceInMilliseconds(
