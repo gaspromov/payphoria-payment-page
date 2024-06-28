@@ -9,6 +9,7 @@
 
   .mat-mdc-input-element {
     @apply tw-mt-1;
+    @apply tw-caret-white #{!important};
   }
 }
 

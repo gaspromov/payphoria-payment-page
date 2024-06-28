@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,9 +7,19 @@ import {
   signal,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { OrderPaymentDTO } from '@pm-models/order/order.models';
 import { Store } from '@pm-store/store';
+import { NgVarDirective } from 'app/common/directives/ngvar.directive';
 import { finalize, map, take } from 'rxjs';
 
 @Component({
@@ -17,14 +28,19 @@ import { finalize, map, take } from 'rxjs';
   styleUrl: './transfer-waiting.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatButton,
+    NgVarDirective,
+    AsyncPipe,
+    MatProgressSpinner,
+  ],
 })
 export class TransferWaitingComponent implements OnInit {
-  readonly paymentData = toSignal(
-    this.getPaymentData()
-  ) as Signal<OrderPaymentDTO>;
+  readonly paymentData$ = this.getPaymentData();
 
-  readonly orderAmountControl = new FormControl<number | null>(
+  readonly amountControl = new FormControl<number | null>(
     null,
     Validators.required
   );
@@ -40,11 +56,11 @@ export class TransferWaitingComponent implements OnInit {
         take(1),
         map((order) => order.amount)
       )
-      .subscribe((res) => this.orderAmountControl.setValue(res));
+      .subscribe((res) => this.amountControl.setValue(res));
   }
 
   onApprove() {
-    if (this.orderAmountControl.invalid) {
+    if (this.amountControl.invalid) {
       return;
     }
 
@@ -52,7 +68,7 @@ export class TransferWaitingComponent implements OnInit {
 
     this.store.order
       .next({
-        amount: this.orderAmountControl.value,
+        amount: this.amountControl.value,
       })
       .pipe(finalize(() => this.pending.set(false)))
       .subscribe({ error: () => {} });

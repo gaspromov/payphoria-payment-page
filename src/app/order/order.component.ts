@@ -7,7 +7,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { OrderStatuses } from '@pm-models/order/order.models';
 import { Store } from '@pm-store/store';
-import { map } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs';
 import { OrderCanceledComponent } from './steps/order-canceled/order-canceled.component';
 import { OrderSuccessComponent } from './steps/order-success/order-success.component';
 import { OrderFailedComponent } from './steps/order-failed/order-failed.component';
@@ -17,6 +17,7 @@ import { TransferWaitingComponent } from './steps/transfer-waiting/transfer-wait
 import { ApproveWaitingComponent } from './steps/approve-waiting/approve-waiting.component';
 import { OrderAmountComponent } from './components/order-amount.component';
 import { OrderStepperComponent } from './components/order-stepper/order-stepper.component';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'pm-order',
@@ -34,6 +35,7 @@ import { OrderStepperComponent } from './components/order-stepper/order-stepper.
     OrderCanceledComponent,
     OrderSuccessComponent,
     OrderFailedComponent,
+    NgOptimizedImage,
   ],
 })
 export class OrderComponent {
@@ -51,6 +53,9 @@ export class OrderComponent {
   private getPaymentMethodImg() {
     return inject(Store)
       .order.selectData()
-      .pipe(map((d) => d.payment?.method.image));
+      .pipe(
+        map((d) => d.payment?.method.image),
+        distinctUntilChanged()
+      );
   }
 }

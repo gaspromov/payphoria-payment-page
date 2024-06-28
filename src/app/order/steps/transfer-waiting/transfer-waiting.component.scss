@@ -1,0 +1,18 @@
+:host{
+    @apply tw-grid tw-gap-5;
+}
+
+mat-form-field {
+  @apply tw-bg-secondary;
+  @apply tw-rounded;
+  --mdc-outlined-text-field-focus-outline-color: #f4f4f400;
+  --mdc-outlined-text-field-focus-outline-width: 0px;
+  --mdc-outlined-text-field-hover-outline-color: #f4f4f400;
+  --mdc-outlined-text-field-outline-color: #f4f4f400;
+  --mdc-outlined-text-field-outline-width: 0px;
+}
+
+input {
+  @apply tw-w-full tw-h-[50px] tw-rounded-[5px] tw-bg-secondary tw-text-white tw-border-none;
+  @apply tw-text-xl tw-font-bold tw-pl-4;
+}

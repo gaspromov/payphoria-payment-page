@@ -1,0 +1,16 @@
+<!-- <mat-form-field appearance="outline">
+  <input type="number" matInput [formControl]="amountControl" />
+</mat-form-field> -->
+<ng-container *ngVar="paymentData$ | async as paymentData"> </ng-container>
+
+<input type="text" [formControl]="amountControl" />
+<button
+  mat-flat-button
+  color="primary"
+  [disabled]="pending()"
+  (click)="onApprove()"
+>
+  @if (!pending()) { Я отправил перевод } @else {
+  <mat-spinner [diameter]="26" [strokeWidth]="3" />
+  }
+</button>

@@ -2,7 +2,7 @@
     <pm-order-amount />
     @if(paymentMethodImg(); as img){
         <div class="payment-method-img">
-            <img [src]="img" alt="">
+            <img [ngSrc]="img" alt="" width="40" height="40" loading="lazy">
         </div>
     }
 </div>

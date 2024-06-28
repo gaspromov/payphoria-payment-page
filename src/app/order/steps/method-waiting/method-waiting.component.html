@@ -1,4 +1,4 @@
-@if (pending$ | async) {
+@if ((orderPending$ | async) || pending()) {
 <mat-progress-bar color="primary" mode="indeterminate" />
 }
 
