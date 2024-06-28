@@ -37,7 +37,7 @@ export class ApproveWaitingComponent {
 
     this.store.order.fetchData();
 
-    interval(5000)
+    interval(8000)
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe({
         next: () => this.store.order.fetchData(),

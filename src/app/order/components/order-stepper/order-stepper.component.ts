@@ -26,8 +26,7 @@ const STEPS_NAMES: Record<OrderStatuses, string> = {
   [OrderStatuses.PAYMENT_METHOD_SELECTION]: 'Выберите метод оплаты',
   [OrderStatuses.PAYMENT_METHOD_WAITING]: 'Ожидаем данные для оплаты',
   [OrderStatuses.PAYMENT_TRANSFER_WAITING]: 'Отправьте перевод через ',
-  [OrderStatuses.PAYMENT_APPROVE_WAITING]:
-    'Ожидаем подтверждения от банка о переводе',
+  [OrderStatuses.PAYMENT_APPROVE_WAITING]: 'Ожидаем подтверждения о переводе',
   [OrderStatuses.SUCCESS]: 'Успешно!',
   [OrderStatuses.CANCELED]: 'Платеж отменен',
   [OrderStatuses.FAILED]: 'Ошибка платежа',
