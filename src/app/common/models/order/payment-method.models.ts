@@ -7,4 +7,6 @@ export interface PaymentMethodDTO {
 
   /** Текст предупреждения */
   warningMessage?: string;
+  /** Описание первого шага для исполнения платежа */
+  firstStepDescription: string
 }

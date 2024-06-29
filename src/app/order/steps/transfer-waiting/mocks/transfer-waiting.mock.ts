@@ -17,8 +17,6 @@ export const TRANSFER_WAITING_ORDER_MOCK = {
     // bank: 'N/A',
     comment: 'test_comments',
     holderName: 'Магомед Б',
-    firstStepDescription:
-      'Откройте приложение вашего банка и перейдите в перевод по номеру телефона',
     method: {
       id: '7',
       image: 'https://cdn.gpay.business/images/Sber.png',
