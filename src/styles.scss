@@ -22,6 +22,10 @@ pm-root {
   @apply tw-text-white;
 }
 
+.dragstarted * {
+  pointer-events: none !important;
+}
+
 body {
   margin: 0;
   font-family: "Inter", sans-serif;

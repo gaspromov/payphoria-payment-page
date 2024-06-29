@@ -1,0 +1,40 @@
+:host {
+  @apply tw-grid;
+}
+
+.dropzone {
+  @apply tw-grid tw-justify-items-center tw-content-center tw-py-2 tw-text-center;
+  @apply tw-box-border tw-cursor-pointer;
+  @apply tw-bg-accent tw-border-2 tw-border-white/30 hover:tw-border-white/60 tw-border-dashed;
+  @apply tw-rounded-[5px];
+
+  &:has(.file) {
+    @apply tw-cursor-default hover:tw-border-white/30;
+  }
+
+  &.dragstarted {
+    @apply tw-border-solid;
+  }
+}
+
+p {
+  @apply tw-text-white/30 tw-text-base tw-font-medium tw-pointer-events-none;
+}
+
+.file {
+  @apply tw-grid tw-grid-flow-col tw-gap-0.5 tw-items-center;
+
+  &__name {
+    @apply tw-text-base tw-text-white/60;
+  }
+}
+
+.remove-btn {
+  @apply tw-ml-2 tw-flex tw-justify-center tw-items-center;
+  --mdc-icon-button-state-layer-size: 44px;
+
+  img {
+    height: 15px;
+    width: 15px;
+  }
+}

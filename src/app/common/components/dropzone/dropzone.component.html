@@ -1,0 +1,39 @@
+<label class="dropzone" #dropzone>
+  @if(selectedFile(); as selectedFile){
+  <div class="file">
+    <img
+      ngSrc="/assets/icons/clip.svg"
+      height="15"
+      width="15"
+      loading="lazy"
+      alt=""
+    />
+    <p class="file__name">{{ selectedFile.name }}</p>
+    <button
+      (click)="onRemoveFile($event)"
+      class="remove-btn"
+      aria-label="Удалить файл"
+    >
+      <img
+        ngSrc="/assets/icons/close.svg"
+        height="15"
+        width="15"
+        loading="lazy"
+        alt=""
+      />
+    </button>
+  </div>
+
+  }@else {
+  <p>Выберите или перетащите фото или скриншот</p>
+  <p>{{ acceptTypesDisplay.join(", ") }}</p>
+  }
+
+  <input
+    type="file"
+    [accept]="acceptedTypes"
+    hidden
+    #fileInput
+    (change)="onSelectFile(fileInput)"
+  />
+</label>
