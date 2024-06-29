@@ -113,7 +113,7 @@ mat-form-field {
 }
 
 .bank {
-  @apply tw-grid tw-grid-flow-col tw-gap-2.5 tw-justify-self-start;
+  @apply tw-grid tw-grid-flow-col tw-gap-2.5 tw-justify-self-start tw-items-center;
   @apply tw-rounded-[20px] tw-bg-accent;
   @apply tw-px-2.5 tw-h-10;
 
