@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@pm-store/store';
 import { map } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { map } from 'rxjs';
   styles: ':host{ @apply tw-grid tw-gap-5; }',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatButton, AsyncPipe],
+  imports: [MatButtonModule, AsyncPipe],
 })
 export class OrderFailedComponent {
   readonly supportLink$ = inject(Store)
