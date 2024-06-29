@@ -18,7 +18,6 @@ export const COMMON_REQUESTS: Record<CommonRequestNames, HttpRequestData> = {
   GET_ORDER: {
     url: `/order/${URL_ORDER_ID_PARAM}`,
     method: 'GET',
-    transferCache: false,
   },
   NEXT_ORDER: {
     url: `/order/${URL_ORDER_ID_PARAM}`,

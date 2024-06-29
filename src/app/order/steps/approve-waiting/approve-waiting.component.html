@@ -1,0 +1,60 @@
+@if (orderPending$ | async) {
+<mat-progress-bar color="primary" mode="indeterminate" />
+}
+
+<ng-container *ngVar="proofImgUrl$ | async as proofImgUrl">
+  <div class="pm-container">
+    <div class="alert" role="alert">
+      @if (!proofImgUrl) {
+      <p class="alert__text">
+        Отправьте скриншот чека ниже, это поможет найти Ваш платеж быстрее
+      </p>
+      <p class="alert__subtext">
+        Нужен скриншот квитанции. Откройте операцию в банке и нажмите
+        “Документы” или “Чек”
+      </p>
+      }@else {
+      <p class="alert__text">Скриншот отправлен и находится на проверке</p>
+      }
+    </div>
+
+    <div class="proof-container">
+      @if (proofImgUrl) {
+      <a
+        mat-flat-button
+        color="primary"
+        [href]="proofImgUrl"
+        target="_blank"
+        rel="noopener"
+        class="tw-justify-self-center"
+      >
+        Посмотреть отправленный файл
+      </a>
+      }@else {
+      <pm-dropzone
+        [acceptTypesDisplay]="['png', 'jpg', 'jpeg', 'pdf']"
+        [acceptedTypes]="[
+          'image/png',
+          'image/jpeg',
+          'image/jpg',
+          'application/pdf'
+        ]"
+        (selectFile)="selectedFile.set($event)"
+        dragzoneType="body"
+      />
+      }
+    </div>
+  </div>
+
+  <button
+    mat-flat-button
+    (click)="onSend()"
+    color="primary"
+    class="tw-mt-5 tw-w-full"
+    [disabled]="filePending() || proofImgUrl"
+  >
+    @if (!filePending()) { Отправить на проверку } @else {
+    <mat-spinner [diameter]="26" [strokeWidth]="3" />
+    }
+  </button>
+</ng-container>

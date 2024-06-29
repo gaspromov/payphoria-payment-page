@@ -32,7 +32,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       {{ timeLeft() | date : 'mm:ss' }}
     </p>
   `,
-  styles: `p{ @apply tw-text-success tw-font-bold tw-text-xl; }`,
+  styles: `p{ @apply tw-text-success tw-font-bold md:tw-text-xl tw-text-base; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DatePipe],
   standalone: true,
@@ -55,7 +55,6 @@ export class OrderTimerComponent implements OnInit, OnDestroy {
         tap((expiresAt) => this.setTimeLeft(expiresAt)),
         filter(() => isPlatformBrowser(this.#platformId)),
         switchMap((expiresAt) => interval(1000).pipe(map(() => expiresAt))),
-        tap((d) => console.log(d))
       )
       .subscribe((expiresAt) => this.setTimeLeft(expiresAt));
   }

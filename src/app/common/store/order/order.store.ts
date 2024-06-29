@@ -1,20 +1,17 @@
-import { Injectable } from '@angular/core';
-import { OrderDTO, OrderStatuses } from '@pm-models/order/order.models';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { OrderDTO } from '@pm-models/order/order.models';
 import { HttpService } from '@pm-services/http/http.service';
 import { COMMON_REQUESTS } from 'app/common/requests/common.requests';
-import { TRANSFER_WAITING_ORDER_MOCK } from 'app/order/steps/transfer-waiting/mocks/transfer-waiting.mock';
 import {
   BehaviorSubject,
   ReplaySubject,
   Subject,
-  catchError,
   finalize,
   map,
-  of,
   shareReplay,
   take,
   tap,
-  throwError,
 } from 'rxjs';
 
 @Injectable({
@@ -26,10 +23,14 @@ export class OrderStore {
   readonly merchantOrderId$;
   readonly pending$;
 
+  private fetchedInBrowser = false;
+
   readonly #data$ = new Subject<OrderDTO>();
   readonly #id$ = new BehaviorSubject<string>('');
   readonly #merchantOrderId$ = new ReplaySubject<string>();
   readonly #pending$ = new BehaviorSubject(false);
+
+  readonly #platformId = inject(PLATFORM_ID);
 
   constructor(private http: HttpService) {
     this.data$ = this.#data$.asObservable().pipe(shareReplay(1));
@@ -51,13 +52,20 @@ export class OrderStore {
   fetchData() {
     this.#pending$.next(true);
 
+    const req = this.fetchedInBrowser
+      ? {
+          ...COMMON_REQUESTS.GET_ORDER,
+          url: COMMON_REQUESTS.GET_ORDER.url + '?',
+        }
+      : COMMON_REQUESTS.GET_ORDER;
+
+    if (isPlatformBrowser(this.#platformId) && !this.fetchedInBrowser) {
+      this.fetchedInBrowser = true;
+    }
+
     this.http
-      .request<OrderDTO>(COMMON_REQUESTS.GET_ORDER)
-      .pipe(
-        finalize(() => this.#pending$.next(false)),
-        // TODO: удалить мок
-        catchError(() => of(TRANSFER_WAITING_ORDER_MOCK))
-      )
+      .request<OrderDTO>(req)
+      .pipe(finalize(() => this.#pending$.next(false)))
       .subscribe({
         next: (data) => this.#data$.next(data),
         error: () => this.#data$.error('Failed to get Order'),
@@ -79,7 +87,7 @@ export class OrderStore {
   }
 
   patchProofImg(proofImg: string) {
-    this.#data$
+    this.data$
       .pipe(
         take(1),
         map(

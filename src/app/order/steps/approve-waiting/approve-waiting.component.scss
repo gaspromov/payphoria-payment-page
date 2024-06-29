@@ -1,0 +1,22 @@
+.pm-container {
+  @apply tw-p-0 tw-gap-5;
+}
+
+.alert {
+  @apply tw-p-5 tw-rounded-t-[5px] tw-bg-primary/30 tw-grid tw-gap-1;
+  &__text {
+    @apply tw-text-base tw-text-white tw-font-medium;
+  }
+
+  &__subtext {
+    @apply tw-text-sm tw-text-primary tw-font-medium;
+  }
+}
+
+.proof-container {
+  @apply tw-grid tw-p-5 tw-pt-0 tw-gap-5;
+}
+
+mat-progress-bar {
+  @apply tw-absolute tw-left-0 tw-top-0 tw-w-full;
+}

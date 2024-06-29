@@ -25,7 +25,7 @@ export class HttpService {
       case 'POST':
         return this.postHttp(reqUrl, body, headers);
       case 'GET':
-        return this.getHttp(reqUrl, headers, reqParams.transferCache);
+        return this.getHttp(reqUrl, headers);
       case 'DELETE':
         return this.deleteHttp(reqUrl, headers);
       case 'PUT':
@@ -50,10 +50,8 @@ export class HttpService {
   private getHttp<Response>(
     url: string,
     headers?: HttpHeaders,
-    transferCache?: boolean
   ) {
     return this.http.get<Response>(url, {
-      transferCache,
       headers,
     });
   }

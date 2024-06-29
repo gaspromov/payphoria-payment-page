@@ -139,7 +139,6 @@ export class DropzoneComponent implements AfterViewInit {
     }
 
     const file = dataTransfer.files.item(0)!;
-    console.log(file.type);
 
     if (!this.acceptedTypes.includes(file.type)) {
       this.snBar.open(`Недопустимый формат файла`, undefined, {
