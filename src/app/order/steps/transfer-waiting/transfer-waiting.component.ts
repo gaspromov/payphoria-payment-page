@@ -28,6 +28,7 @@ import { OrderPaymentDTO } from '@pm-models/order/order.models';
 import { UtilsService } from '@pm-services/utils.service';
 import { Store } from '@pm-store/store';
 import { NgVarDirective } from 'app/common/directives/ngvar.directive';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { finalize, map, take } from 'rxjs';
 
 @Component({
@@ -47,13 +48,15 @@ import { finalize, map, take } from 'rxjs';
     NgClass,
     NgOptimizedImage,
     NgTemplateOutlet,
+    NgxMaskDirective,
   ],
+  providers: [provideNgxMask()],
 })
 export class TransferWaitingComponent implements OnInit {
   readonly inputFocused = signal(false);
   readonly order$ = this.store.order.selectData();
 
-  readonly amountControl = new FormControl<number | null>(
+  readonly amountControl = new FormControl<string | null>(
     null,
     Validators.required
   );
@@ -62,6 +65,12 @@ export class TransferWaitingComponent implements OnInit {
 
   constructor(private store: Store, private utils: UtilsService) {}
 
+  get amountControlValue() {
+    return Number(
+      this.amountControl.value?.replaceAll(' ', '').replace(',', '.')
+    );
+  }
+
   ngOnInit(): void {
     this.store.order
       .selectData()
@@ -69,7 +78,7 @@ export class TransferWaitingComponent implements OnInit {
         take(1),
         map((order) => order.amount)
       )
-      .subscribe((res) => this.amountControl.setValue(res));
+      .subscribe((res) => this.amountControl.setValue(res.toString()));
   }
 
   onApprove() {
@@ -81,7 +90,7 @@ export class TransferWaitingComponent implements OnInit {
 
     this.store.order
       .next({
-        amount: this.amountControl.value,
+        amount: this.amountControlValue,
       })
       .pipe(finalize(() => this.pending.set(false)))
       .subscribe({ error: () => {} });

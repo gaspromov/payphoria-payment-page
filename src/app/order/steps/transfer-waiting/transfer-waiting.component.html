@@ -46,7 +46,11 @@
             alt="Логотип банка получателя"
           />
           <p class="bank__info normal-text">
-            Перевод в {{ bank.name }} ({{ order.payment!.holderName }})
+            @if(bank.name){ Перевод в {{ bank.name }} ({{
+              order.payment!.holderName
+            }}) }@else {
+            {{ order.payment!.holderName }}
+            }
           </p>
         </div>
         }
@@ -101,9 +105,11 @@
           <input
             (focus)="inputFocused.set(true)"
             (blur)="inputFocused.set(false)"
-            type="number"
+            type="text"
+            mask="separator.2"
             class="pm-form-field__input"
             [formControl]="amountControl"
+            [dropSpecialCharacters]="false"
           />
         </span>
         <span class="pm-form-field__symbol">
@@ -120,9 +126,9 @@
           "
         />
       </label>
-      @if (amountControl.valid && amountControl.value !== order.amount){
+      @if (amountControl.valid && amountControlValue !== order.amount){
       <p class="pm-alert small-text tw-mt-2.5" role="alert">
-        Сумма была изменена на {{ amountControl.value }}
+        Сумма была изменена на {{ amountControlValue }}
         {{ order.currency.symbol }}
       </p>
       }
