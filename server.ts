@@ -6,6 +6,16 @@ import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
 import compression from 'compression';
 
+var lastTime = 0;
+// @ts-ignore
+global['requestAnimationFrame'] = function (callback) {
+  const now = new Date().getTime();
+  var nextTime = Math.max(lastTime + 16, now);
+  return setTimeout(function () {
+    callback((lastTime = nextTime));
+  }, nextTime - now);
+};
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
