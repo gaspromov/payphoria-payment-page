@@ -2,8 +2,11 @@
   @apply tw-grid tw-gap-5;
 }
 
+.steps-container {
+  @apply tw-grid tw-bg-secondary md:tw-p-5 tw-p-3.5 tw-gap-5 tw-rounded-[5px];
+}
+
 mat-form-field {
-  @apply tw-bg-secondary;
   @apply tw-rounded;
   --mdc-outlined-text-field-focus-outline-color: #f4f4f400;
   --mdc-outlined-text-field-focus-outline-width: 0px;
@@ -13,7 +16,7 @@ mat-form-field {
 }
 
 .pm-form-field {
-  @apply tw-w-full tw-h-[50px] tw-rounded-[5px] tw-bg-secondary tw-pl-4;
+  @apply tw-h-[50px] tw-rounded-[5px] tw-bg-accent tw-pl-4 tw-justify-self-start;
   @apply tw-items-center tw-grid tw-grid-flow-col tw-cursor-text;
   @apply tw-box-border;
   grid-template-columns: auto auto 1fr;
@@ -23,7 +26,7 @@ mat-form-field {
   @apply tw-transition-colors;
 
   &_focused {
-    @apply tw-border-secondary-hover/70 tw-border-secondary-hover/70;
+    @apply tw-border-secondary-hover/70;
   }
 
   &_invalid {
@@ -40,8 +43,8 @@ mat-form-field {
     @apply tw-text-xl tw-font-bold tw-text-white;
   }
 
-  &__symbol {
-    @apply tw-ml-1;
+  &__input-value {
+    @apply tw-text-[18px] tw-pr-0.5;
   }
 
   &__input-value {
@@ -52,38 +55,42 @@ mat-form-field {
     }
   }
 
+  &__symbol {
+    @apply tw-ml-0.5;
+  }
+
   &__input {
     @apply tw-bg-white/0 tw-h-full tw-w-full tw-border-none tw-absolute tw-left-0 tw-top-0 tw-p-0 tw-outline-none;
   }
 
   .copy-btn {
-    @apply tw-mr-1.5;
+    @apply tw-mx-1.5;
     @apply tw-justify-self-end;
   }
 }
 
 .step {
-  @apply tw-grid tw-grid-cols-[40px_1fr] tw-gap-2.5;
+  @apply tw-grid tw-relative tw-gap-2.5;
+
+  &_lined::before {
+    content: "";
+    @apply max-md:tw-hidden tw-block tw-absolute;
+    @apply tw-h-[calc(100%_-_40px_+_20px)] tw-top-10 tw-left-[18px];
+    @apply tw-w-1 tw-bg-primary/30;
+  }
+
+  &__header {
+    @apply tw-grid tw-grid-cols-[40px_1fr] tw-gap-2.5;
+    @apply tw-items-center;
+  }
+
+  &__body {
+    @apply md:tw-pl-[50px] tw-grid md:tw-gap-4 tw-gap-2.5;
+  }
 
   &__index {
     @apply tw-bg-primary/30 tw-rounded-[5px] tw-h-10 tw-w-10 tw-flex tw-justify-center tw-items-center;
-    @apply tw-text-xl tw-leading-5 tw-font-bold tw-text-primary;
-  }
-
-  &__index-wrapper_lined {
-    @apply tw-relative;
-
-    &::after {
-      content: "";
-      @apply md:tw-block tw-hidden;
-      @apply tw-absolute tw-top-10 tw-left-1/2 -tw-translate-x-1/2;
-      @apply tw-h-[calc(100%_-_40px_+_20px)];
-      @apply tw-w-1 tw-bg-primary/30;
-    }
-  }
-
-  &__content {
-    @apply tw-grid;
+    @apply tw-text-xl tw-leading-5 tw-font-bold tw-text-white;
   }
 }
 
@@ -103,8 +110,9 @@ mat-form-field {
   }
 
   &__requisites {
-    @apply tw-text-xl tw-font-semibold;
+    @apply tw-text-xl tw-font-semibold tw-bg-accent tw-rounded-[5px] tw-justify-self-start;
     @apply tw-grid tw-grid-flow-col tw-items-center;
+    @apply tw-gap-1 tw-pr-1 tw-pl-4 tw-py-1;
   }
 
   .copy-btn {
@@ -114,8 +122,7 @@ mat-form-field {
 
 .bank {
   @apply tw-grid tw-grid-flow-col tw-gap-2.5 tw-justify-self-start tw-items-center;
-  @apply tw-rounded-[20px] tw-bg-accent;
-  @apply tw-px-2.5 tw-h-10;
+  @apply tw-py-2;
 
   &__logo {
     @apply tw-rounded-full;
