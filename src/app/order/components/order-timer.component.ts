@@ -42,6 +42,7 @@ export class OrderTimerComponent implements OnInit, OnDestroy {
 
   readonly #platformId = inject(PLATFORM_ID);
   readonly #intervalDestroyer$ = new Subject<void>();
+  readonly #destroyRef = inject(DestroyRef);
 
   constructor(private store: Store, private snBar: MatSnackBar) {}
 
@@ -54,7 +55,7 @@ export class OrderTimerComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         tap((expiresAt) => this.setTimeLeft(expiresAt)),
         filter(() => isPlatformBrowser(this.#platformId)),
-        switchMap((expiresAt) => interval(1000).pipe(map(() => expiresAt))),
+        switchMap((expiresAt) => interval(1000).pipe(map(() => expiresAt)))
       )
       .subscribe((expiresAt) => this.setTimeLeft(expiresAt));
   }
@@ -71,6 +72,7 @@ export class OrderTimerComponent implements OnInit, OnDestroy {
       this.snBar.open('Заказ просрочен', undefined, {
         panelClass: 'snackbar_warn',
       });
+      this.intervalFetchOrder();
       return;
     }
     const difference = differenceInMilliseconds(
@@ -78,5 +80,12 @@ export class OrderTimerComponent implements OnInit, OnDestroy {
       new Date()
     );
     this.timeLeft.set(difference);
+  }
+
+  private intervalFetchOrder() {
+    this.store.order.fetchData();
+    interval(6000)
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe(() => this.store.order.fetchData());
   }
 }

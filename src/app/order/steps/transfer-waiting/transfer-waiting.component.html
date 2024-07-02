@@ -1,3 +1,7 @@
+@if (orderPending$ | async) {
+  <mat-progress-bar color="primary" mode="indeterminate" />
+}
+
 <div class="steps-container" *ngVar="(order$ | async)! as order">
   <!-- 1 шаг -->
   <div class="step step_lined">

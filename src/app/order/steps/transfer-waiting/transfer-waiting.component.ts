@@ -23,6 +23,7 @@ import {
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { OrderPaymentDTO } from '@pm-models/order/order.models';
 import { UtilsService } from '@pm-services/utils.service';
@@ -49,6 +50,7 @@ import { finalize, map, take } from 'rxjs';
     NgOptimizedImage,
     NgTemplateOutlet,
     NgxMaskDirective,
+    MatProgressBar,
   ],
   providers: [provideNgxMask()],
 })
@@ -60,6 +62,8 @@ export class TransferWaitingComponent implements OnInit {
     null,
     Validators.required
   );
+
+  readonly orderPending$ = this.store.order.selectPending();
 
   readonly pending = signal(false);
 

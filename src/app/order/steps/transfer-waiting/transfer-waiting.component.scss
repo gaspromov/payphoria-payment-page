@@ -44,10 +44,6 @@ mat-form-field {
   }
 
   &__input-value {
-    @apply tw-text-[18px] tw-pr-0.5;
-  }
-
-  &__input-value {
     @apply tw-opacity-0 tw-pointer-events-none;
 
     &_empty {
@@ -137,4 +133,8 @@ mat-form-field {
     width: 16px;
     @apply tw-mb-0.5;
   }
+}
+
+mat-progress-bar {
+  @apply tw-absolute tw-left-0 tw-top-0 tw-w-full;
 }
