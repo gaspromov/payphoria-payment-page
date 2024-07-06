@@ -44,7 +44,7 @@ mat-form-field {
   }
 
   &__input-value {
-    @apply tw-opacity-0 tw-pointer-events-none;
+    @apply tw-opacity-0 tw-pointer-events-none tw-pr-0.5;
 
     &_empty {
       @apply tw-w-2;
